@@ -5,7 +5,7 @@ console.log(today);
 var todaySpanEl = $("#currentDay");
 todaySpanEl.text(today);
 
-console.log(dayjs().format('H a'));
+console.log(dayjs().format('h a'));
 
 // event objects
 hour9 = {
@@ -49,8 +49,7 @@ var events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
 // save to array of objects
 // save them to local storage
 var saveEvents = function() {
-    $(".event-text").each(function(index) {
-        console.log(index + ": " + $(this).text());
+    $(".time-block").each(function(index) {
         events[index].event = $(this).text();
     });
 
@@ -70,60 +69,53 @@ var loadEvents = function () {
         events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
     }
 
-    $(".event-text").each(function (index) {
+    $(".time-block").each(function (index) {
         $(this).text(events[index].event);
-        console.log(index + ": " + $(this).text());
     });
 }
 
-// click listener for p element in time block
-$(".time-block").on("click", "p", function () {
-    // get text from <p> element
+// click listener for time block div element
+$(".row").on("click", ".time-block", function () {
+    // get text from <div> element
     var text = $(this)
-        .text()
-        .trim();
+    .text()
+    .trim();
 
     // change to form input
     var textInput = $("<textarea>")
-        .addClass("form-control")
+        .addClass("form-control-sm text-light w-75")
         .val(text);
+
     $(this).replaceWith(textInput);
     // automatically select text
     textInput.trigger("select");
 });
 
 // replace event text with new input
-$(".time-block").on("blur", "textarea", function () {
+$(".row").on("blur", "textarea", function () {
     // get the textarea's current value/text
     var text = $(this)
         .val()
         .trim();
 
-    /*
-    // get the parent ul's id attribute
-    var status = $(this)
-        .closest(".list-group")
-        .attr("id")
-        .replace("list-", "");
-
-    // get the task's position in the list of other li elements
-    var index = $(this)
-        .closest(".list-group-item")
-        .index();
-
-    tasks[status][index].text = text;
-    saveTasks();
-    */
-
-    // recreate p element
-    var taskP = $("<p>")
-        .addClass("event-text text-light text-left")
+    // recreate div element
+    var newEvent = $("<div>")
+        .addClass("time-block col-10 text-light text-left h-100 pt-3")
         .text(text);
 
-    // replace textarea with p element
-    $(this).replaceWith(taskP);
+    // replace textarea with div element
+    $(this).replaceWith(newEvent);
 
     saveEvents();
 });
 
+// clear all events
+$("#clear").on("click", function () {
+    $(".time-block").each(function(index) {
+        $(this).text("");
+        saveEvents();
+    })
+});
+
 loadEvents();
+

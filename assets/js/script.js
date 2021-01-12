@@ -1,48 +1,58 @@
 // global variables
-var today = dayjs().format('dddd, MMMM D YYYY');
+var today = moment().format('dddd, MMMM Do YYYY');
 console.log(today);
 
 var todaySpanEl = $("#currentDay");
 todaySpanEl.text(today);
 
-console.log(dayjs().format('h a'));
+events = JSON.parse(localStorage.getItem("events"));
 
-// event objects
-hour9 = {
-    hr: 9,
-    event: ""
-}
-hour10 = {
-    hr: 10,
-    event: ""
-}
-hour11 = {
-    hr: 11,
-    event: ""
-}
-hour12 = {
-    hr: 12,
-    event: ""
-}
-hour13 = {
-    hr: 13,
-    event: ""
-}
-hour14 = {
-    hr: 14,
-    event: ""
-}
-hour15 = {
-    hr: 15,
-    event: ""
-}
-hour16 = {
-    hr: 16,
-    event: ""
+if (!events) {
+    // default event objects
+    var hour9 = {
+        hr: moment().hour(9).startOf('hour'),
+        event: ""
+    }
+    var hour10 = {
+        hr: moment().hour(10).startOf('hour'),
+        event: ""
+    }
+    var hour11 = {
+        hr: moment().hour(11).startOf('hour'),
+        event: ""
+    }
+    var hour12 = {
+        hr: moment().hour(12).startOf('hour'),
+        event: ""
+    }
+    var hour13 = {
+        hr: moment().hour(13).startOf('hour'),
+        event: ""
+    }
+    var hour14 = {
+        hr: moment().hour(14).startOf('hour'),
+        event: ""
+    }
+    var hour15 = {
+        hr: moment().hour(15).startOf('hour'),
+        event: ""
+    }
+    var hour16 = {
+        hr: moment().hour(16).startOf('hour'),
+        event: ""
+    }
+    events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
 }
 
-// events array
-var events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
+/* KEEP THiS */
+
+/*
+localStorage.setItem("notes", $("#notes").val());
+var savedNote = localStorage.getItem("notes");
+console.log(savedNote);
+$("#notes").text = savedNote;*/
+
+/* KEEP THiS */
 
 // save events
 // get text from each timeblock
@@ -51,6 +61,7 @@ var events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
 var saveEvents = function() {
     $(".time-block").each(function(index) {
         events[index].event = $(this).text();
+        events[index].hr = moment().hour(index + 9).startOf('hour');
     });
 
     console.log(events);
@@ -63,12 +74,6 @@ var saveEvents = function() {
 // get events from local storage 
 // update timeblocks with event text
 var loadEvents = function () {
-    events = JSON.parse(localStorage.getItem("events"));
-
-    if (!events) {
-        events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
-    }
-
     $(".time-block").each(function (index) {
         $(this).text(events[index].event);
     });
@@ -119,3 +124,15 @@ $("#clear").on("click", function () {
 
 loadEvents();
 
+console.log(events);
+
+// check events
+// change colour for past, present, future events
+var checkEvents = function (eventsArray) {
+    for (var i = 0; i < eventsArray.length; i++) {
+        console.log(moment(events[i].hr).isBefore(moment().startOf('hour')))
+        console.log("before now oclock");
+    }
+}
+
+checkEvents(events);

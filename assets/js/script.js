@@ -56,76 +56,6 @@ $("#notes").text = savedNote;*/
 
 /* KEEP THiS */
 
-// save events
-// get text from each timeblock
-// save to array of objects
-// save them to local storage
-var saveEvents = function() {
-    $(".time-block").each(function(index) {
-        events[index].event = $(this).text();
-        events[index].hr = moment().set("hour", (index + 9));
-    });
-
-    console.log(events);
-
-    localStorage.setItem("events", JSON.stringify(events));
-
-};
-
-// load events
-// get events from local storage 
-// update timeblocks with event text
-var loadEvents = function () {
-    $(".time-block").each(function (index) {
-        $(this).text(events[index].event);
-    });
-}
-
-// click listener for time block div element
-$(".row").on("click", ".time-block", function () {
-    // get text from <div> element
-    var text = $(this)
-    .text()
-    .trim();
-
-    // change to form input
-    var textInput = $("<textarea>")
-        .addClass("form-control-sm text-light w-75")
-        .val(text);
-
-    $(this).replaceWith(textInput);
-    // automatically select text
-    textInput.trigger("select");
-});
-
-// replace event text with new input
-$(".row").on("blur", "textarea", function () {
-    // get the textarea's current value/text
-    var text = $(this)
-        .val()
-        .trim();
-
-    // recreate div element
-    var newEvent = $("<div>")
-        .addClass("time-block col-10 text-light text-left h-100 pt-3")
-        .text(text);
-
-    // replace textarea with div element
-    $(this).replaceWith(newEvent);
-
-    saveEvents();
-});
-
-// clear all events
-$("#clear").on("click", function () {
-    $(".time-block").each(function(index) {
-        $(this).text("");
-        saveEvents();
-    })
-});
-
-loadEvents();
-
 // check events
 // change colour for past, present, future events
 var checkEvents = function (eventsArray) {
@@ -151,4 +81,80 @@ var checkEvents = function (eventsArray) {
     }
 }
 
-checkEvents(events);
+// save events
+// get text from each timeblock
+// save to array of objects
+// save them to local storage
+var saveEvents = function() {
+    $(".time-block").each(function(index) {
+        events[index].event = $(this).text();
+        events[index].hr = moment().set("hour", (index + 9));
+        $(this).attr('id', (index + 9));
+    });
+
+    //console.log(events);
+
+    localStorage.setItem("events", JSON.stringify(events));
+
+};
+
+// load events
+// get events from local storage 
+// update timeblocks with event text
+var loadEvents = function () {
+    $(".time-block").each(function (index) {
+        $(this).text(events[index].event);
+    });
+    checkEvents(events);
+}
+
+// click listener for time block div element
+$(".row").on("click", ".time-block", function () {
+    if (!(moment(events[parseInt($(this).attr('id')) - 9].hr).isBefore(moment(), 'hour'))) {
+        // get text from <div> element
+        var text = $(this)
+            .text()
+            .trim();
+
+        // change to form input
+        var textInput = $("<textarea>")
+            .addClass("form-control-sm text-light w-75")
+            .val(text);
+
+        $(this).replaceWith(textInput);
+        // automatically select text
+        textInput.trigger("select");
+    }
+});
+
+// replace event text with new input
+$(".row").on("blur", "textarea", function () {
+    // get the textarea's current value/text
+    var text = $(this)
+        .val()
+        .trim();
+
+    // recreate div element
+    var newEvent = $("<div>")
+        .addClass("time-block col-10 text-light text-left h-100 pt-3 rounded-0")
+        .text(text);
+
+    // replace textarea with div element
+    $(this).replaceWith(newEvent);
+
+    saveEvents();
+    checkEvents(events);
+});
+
+// clear all events
+$("#clear").on("click", function () {
+    $(".time-block").each(function(index) {
+        $(this).text("");
+        saveEvents();
+    })
+});
+
+loadEvents();
+
+
+

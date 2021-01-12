@@ -1,125 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Work Day Scheduler</title>
-  </head>
 
-  <body>
-    <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p>Today is <span id="currentDay">Hello</span></p>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+    integrity="sha512-UyNhw5RNpQaCai2EdC+Js0QL4RlVmiq41DkmCJsRV3ZxipG2L0HhTqIf/H9Hp8ez2EnFlkBnjRGJU2stW3Lj+w=="
+    crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Work Day Scheduler</title>
+</head>
 
-    <!-- schedule container -->
-    <div class="container w-75 mb-5">
-      <!-- add hour before -->
-      <div class="row h-25">
-        <button class="btn w-100 btn-outline-dark p-1" id="add-before">+</button>
+<body>
+  <header class="jumbotron bg-white">
+    <h1 class="display-3">
+      <span class="oi oi-list display-4 border-4 mr-2 p-3 offset-border-4 bg-secondary"></span>
+      Work Day Scheduler
+    </h1>
+    <p class="lead">A simple calendar app for scheduling your work day</p>
+    <p>Today is <span id="currentDay">a great day</span></p>
+  </header>
+
+
+  <!-- page container -->
+  <div class="flex-row mx-4">
+  
+  <!-- schedule container -->
+    <div class="container">
+
+    <!-- add hour before -->
+    <div class="row mb-1">
+      <button class="btn-add w-100 border-2 p-1" id="add-before">+</button>
+    </div>
+
+    <!-- timeblocks -->
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2">9 am</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3" id="9">
       </div>
+      <button class="btn btn-light col-1 border-2 rounded-0">Save</button>
+    </div>
 
-      <!-- timeblocks -->
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">9 am</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="9">
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2 h-100">10 am</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3" id="10">
 
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
       </div>
+      <button class="btn btn-light col-1 border-2 rounded-0">Save</button>
+    </div>
 
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">10 am</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="10">
-        
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
-      </div>
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2 h-100">11 am</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3 rounded-0" id="11">
 
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">11 am</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="11">
-        
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
       </div>
-      
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">12 pm</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="12">
-      
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
-      </div>
+      <button class="btn btn-light border-2 col-1 rounded-0">Save</button>
+    </div>
 
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">1 pm</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="13">
-        
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
-      </div>
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2 h-100">12 pm</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3 rounded-0" id="12">
 
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">2 pm</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="14">
-        
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
       </div>
+      <button class="btn btn-light border-2 col-1 rounded-0">Save</button>
+    </div>
 
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">3 pm</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="15">
-        
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2 h-100">1 pm</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3 rounded-0" id="13">
+
       </div>
+      <button class="btn btn-light border-2 col-1 rounded-0">Save</button>
+    </div>
 
-      <div class="row bg-dark">
-        <div class="hour col-1 h-100 pl-1 pt-1">4 pm</div>
-        <div class="time-block col-10 text-light text-left h-100 pt-3 rounded-0" id="16">
-        
-        </div>
-        <button class="btn btn-light col-1 h-100 rounded-0">Save</button>
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2 h-100">2 pm</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3 rounded-0" id="14">
+
       </div>
+      <button class="btn btn-light border-2 col-1 rounded-0">Save</button>
+    </div>
 
-      <!-- add hour before -->
-      <div class="row h-25">
-        <button class="btn w-100 btn-outline-dark p-1" id="add-after">+</button>
+    <div class="row bg-dark mb-1">
+      <div class="hour col-1 border-2 h-100">3 pm</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3 rounded-0" id="15">
+
       </div>
+      <button class="btn btn-light border-2 col-1 rounded-0">Save</button>
+    </div>
 
-      <div class="row">
-        <button class="btn btn-dark mt-3 mx-auto" id="clear">Clear all events</button>
+    <div class="row bg-secondary mb-1">
+      <div class="hour col-1 border-2 h-100">4 pm</div>
+      <div class="time-block col-10 border-2 text-light text-left pt-3" id="16">
+
       </div>
+      <button class="btn btn-light border-2 col-1 rounded-0">Save</button>
+    </div>
 
-      <div>
-        <textarea id="notes">Take a note!</textarea>
-      </div>
-
+    <!-- add hour before -->
+    <div class="row mb-1">
+      <button class="btn-add w-100 border-2 p-1" id="add-after">+</button>
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <!--<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>-->
-    <script src="./assets/js/script.js"></script>
-  </body>
+  </div>
+
+
+  <div>
+  <textarea id="notes" class="border-2 offset-border-2 mb-2">Take notes here!</textarea>
+  <button class="btn-black border-2 p-2" id="clear">Clear all events</button>
+  </div>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>

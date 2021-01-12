@@ -69,16 +69,17 @@ var checkEvents = function (eventsArray) {
         if (moment(events[i].hr).isSame(moment(), 'hour')) {
             console.log(moment(events[i].hr).format('h a'));
             console.log("is in the present");
-            $(currID).addClass("bg-info");
+            $(currID).addClass("present");
         }
         else if (moment(events[i].hr).isBefore(moment(), 'hour')) {
             console.log(moment(events[i].hr).format('h a'));
             console.log("is in the past");
+            $(currID).addClass("past");
         }
         else {
             console.log(moment(events[i].hr).format('h a'));
             console.log("is in the future");
-            $(currID).addClass("bg-secondary");
+            $(currID).addClass("future");
         }
         //console.log(moment(events[i].hr).isSame(moment(), 'hour'));
         //console.log(moment(events[i].hr).isBefore(moment(), 'hour'));
@@ -127,7 +128,7 @@ $(".row").on("click", ".time-block", function () {
 
         // change to form input
         var textInput = $("<textarea>")
-            .addClass("form-control-sm text-light w-75")
+            .addClass("bg-transparent h-100 pt-3 col-10 border-2")
             .val(text);
 
         $(this).replaceWith(textInput);
@@ -145,7 +146,7 @@ $(".row").on("blur", "textarea", function () {
 
     // recreate div element
     var newEvent = $("<div>")
-        .addClass("time-block col-10 text-light text-left h-100 pt-3 rounded-0")
+        .addClass("time-block col-10 border-2 text-light text-left pt-3")
         .text(text);
 
     // replace textarea with div element

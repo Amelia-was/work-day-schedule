@@ -52,9 +52,14 @@ if (!events) {
 localStorage.setItem("notes", $("#notes").val());
 var savedNote = localStorage.getItem("notes");
 console.log(savedNote);
+var savedNote = localStorage.getItem("notes");
 $("#notes").text = savedNote;*/
 
-/* KEEP THiS */
+// notepad
+$("#notes").on("blur", function () {
+    localStorage.setItem("notes", $("#notes").val());
+}
+)
 
 // check events
 // change colour for past, present, future events
@@ -106,6 +111,10 @@ var loadEvents = function () {
         $(this).text(events[index].event);
     });
     checkEvents(events);
+
+    // load notes
+    var savedNote = localStorage.getItem("notes");
+    $("#notes").val(savedNote);
 }
 
 // click listener for time block div element

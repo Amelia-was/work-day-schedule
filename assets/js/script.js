@@ -5,40 +5,42 @@ console.log(today);
 var todaySpanEl = $("#currentDay");
 todaySpanEl.text(today);
 
+console.log(moment().format('h a'));
+
 events = JSON.parse(localStorage.getItem("events"));
 
 if (!events) {
     // default event objects
     var hour9 = {
-        hr: moment().hour(9).startOf('hour'),
+        hr: moment().set("hour", 9),
         event: ""
     }
     var hour10 = {
-        hr: moment().hour(10).startOf('hour'),
+        hr: moment().set("hour", 10),
         event: ""
     }
     var hour11 = {
-        hr: moment().hour(11).startOf('hour'),
+        hr: moment().set("hour", 11),
         event: ""
     }
     var hour12 = {
-        hr: moment().hour(12).startOf('hour'),
+        hr: moment().set("hour", 12),
         event: ""
     }
     var hour13 = {
-        hr: moment().hour(13).startOf('hour'),
+        hr: moment().set("hour", 13),
         event: ""
     }
     var hour14 = {
-        hr: moment().hour(14).startOf('hour'),
+        hr: moment().set("hour", 14),
         event: ""
     }
     var hour15 = {
-        hr: moment().hour(15).startOf('hour'),
+        hr: moment().set("hour", 15),
         event: ""
     }
     var hour16 = {
-        hr: moment().hour(16).startOf('hour'),
+        hr: moment().set("hour", 16),
         event: ""
     }
     events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
@@ -61,7 +63,7 @@ $("#notes").text = savedNote;*/
 var saveEvents = function() {
     $(".time-block").each(function(index) {
         events[index].event = $(this).text();
-        events[index].hr = moment().hour(index + 9).startOf('hour');
+        events[index].hr = moment().set("hour", (index + 9));
     });
 
     console.log(events);
@@ -124,14 +126,28 @@ $("#clear").on("click", function () {
 
 loadEvents();
 
-console.log(events);
-
 // check events
 // change colour for past, present, future events
 var checkEvents = function (eventsArray) {
     for (var i = 0; i < eventsArray.length; i++) {
-        console.log(moment(events[i].hr).isBefore(moment().startOf('hour')))
-        console.log("before now oclock");
+        var currID = "#" + (i + 9);
+        if (moment(events[i].hr).isSame(moment(), 'hour')) {
+            console.log(moment(events[i].hr).format('h a'));
+            console.log("is in the present");
+            $(currID).addClass("bg-info");
+        }
+        else if (moment(events[i].hr).isBefore(moment(), 'hour')) {
+            console.log(moment(events[i].hr).format('h a'));
+            console.log("is in the past");
+        }
+        else {
+            console.log(moment(events[i].hr).format('h a'));
+            console.log("is in the future");
+            $(currID).addClass("bg-secondary");
+        }
+        //console.log(moment(events[i].hr).isSame(moment(), 'hour'));
+        //console.log(moment(events[i].hr).isBefore(moment(), 'hour'));
+        //console.log(moment(events[i].hr).isAfter(moment(), 'hour'));
     }
 }
 

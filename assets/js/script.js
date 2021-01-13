@@ -61,29 +61,40 @@ $("#notes").on("blur", function () {
 }
 )
 
+var updateTimes = function(events) {
+    if (moment(events[7].hr).isBefore(moment(), 'day')) {
+        for (var i = 0; i < events.length; i++) {
+            events[i].hr = moment().set("hour", (i+9));
+        }
+    }
+}
+
 // check events
 // change colour for past, present, future events
 var checkEvents = function (eventsArray) {
     for (var i = 0; i < eventsArray.length; i++) {
         var currID = "#" + (i + 9);
         if (moment(events[i].hr).isSame(moment(), 'hour')) {
-            console.log(moment(events[i].hr).format('h a'));
-            console.log("is in the present");
+            //console.log(moment(events[i].hr).format('h a'));
+            //console.log("is in the present");
+            $(currID).removeClass("future");
+            $(currID).removeClass("past");
             $(currID).addClass("present");
         }
         else if (moment(events[i].hr).isBefore(moment(), 'hour')) {
-            console.log(moment(events[i].hr).format('h a'));
-            console.log("is in the past");
+            //console.log(moment(events[i].hr).format('h a'));
+            //console.log("is in the past");
+            $(currID).removeClass("present");
+            $(currID).removeClass("future");
             $(currID).addClass("past");
         }
         else {
-            console.log(moment(events[i].hr).format('h a'));
-            console.log("is in the future");
+            ///console.log(moment(events[i].hr).format('h a'));
+            //console.log("is in the future");
+            $(currID).removeClass("past");
+            $(currID).removeClass("present");
             $(currID).addClass("future");
         }
-        //console.log(moment(events[i].hr).isSame(moment(), 'hour'));
-        //console.log(moment(events[i].hr).isBefore(moment(), 'hour'));
-        //console.log(moment(events[i].hr).isAfter(moment(), 'hour'));
     }
 }
 
@@ -120,7 +131,13 @@ var loadEvents = function () {
 
 // click listener for time block div element
 $(".row").on("click", ".time-block", function () {
-    if (!(moment(events[parseInt($(this).attr('id')) - 9].hr).isBefore(moment(), 'hour'))) {
+    var currEventIndex = parseInt($(this).attr('id')) - 9;
+    // only allow editing for present/future events
+    if (!(moment(events[currEventIndex].hr).isBefore(moment(), 'hour'))) {
+        var timeClass = " future";
+        if (moment(events[currEventIndex].hr).isSame(moment(), 'hour')) {
+            timeClass = " present"
+        }
         // get text from <div> element
         var text = $(this)
             .text()
@@ -128,7 +145,7 @@ $(".row").on("click", ".time-block", function () {
 
         // change to form input
         var textInput = $("<textarea>")
-            .addClass("bg-transparent h-100 pt-3 col-10 border-2")
+            .addClass("inherit-height pt-3 col-10 border-x-2" + timeClass)
             .val(text);
 
         $(this).replaceWith(textInput);
@@ -146,7 +163,7 @@ $(".row").on("blur", "textarea", function () {
 
     // recreate div element
     var newEvent = $("<div>")
-        .addClass("time-block col-10 border-2 text-light text-left pt-3")
+        .addClass("time-block col-10 border-x-2 text-left pt-3")
         .text(text);
 
     // replace textarea with div element
@@ -164,6 +181,7 @@ $("#clear").on("click", function () {
     })
 });
 
+updateTimes(events);
 loadEvents();
 
 

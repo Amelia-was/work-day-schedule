@@ -101,7 +101,6 @@ var loadEvents = function () {
         $(this)
         .find($(".time-block"))
         .text(events[index].event)
-        console.log($(this));
 
         $(this)
         .find($(".hour"))
@@ -201,7 +200,6 @@ var changeStartTime = function (newTime) {
 // add that to index each time
 // new day should revert to default times
 
-console.log(events);
 //changeStartTime(14)
 updateDay();
 loadEvents();

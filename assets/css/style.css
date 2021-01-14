@@ -7,20 +7,12 @@ body {
 }
 
 :root {
-  --sageGreen: #c9cba3;
-  --yellow: #ffe1a8;
-  --magenta: #723d46;
-  --green: #096B72;
   --black: #070707;
   --blackTransparent: rgba(7, 7, 7, 0.6);
+  --sageGreen: #c9cba3;
+  --yellow: #ffe1a8;
   --lightBlue: #B2CEDE;
-  --coral: #F08080;
-  --lightGreen: #69a197;
   --lightGrey: #e2e6e7; 
-}
-
-.bg-sageGreen {
-  background: var(--sageGreen) !important;
 }
 
 .bg-yellow {
@@ -48,14 +40,6 @@ textarea {
   border: 2px solid black;
   padding: 40px;
   max-width: 1024px;
-}
-
-.description {
-  white-space: pre-wrap;
-}
-
-.time-block {
-  text-align: center;
 }
 
 .row {
@@ -133,10 +117,6 @@ textarea {
   border-left: none !important;
 }
 
-#notes {
-  background: #fff;
-}
-
 .btn-add {
   background: #fff;
   color: var(--black);
@@ -158,10 +138,6 @@ textarea {
   transition: all .3s ease-in-out;
 }
 
-.hide-text {
-  opacity: 0;
-}
-
 .list-icon {
   height: 100px;
   width: 100px;
@@ -174,13 +150,6 @@ textarea {
 .lock {
   height: 20px;
   width: 20px;
-}
-
-.list-img {
-  white-space: pre;
-  line-height: 1.7;
-  height: max-content;
-  font-size: 0.7vw;
 }
 
 .inherit-height {

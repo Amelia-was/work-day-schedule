@@ -15,6 +15,7 @@ body {
   --lightBlue: #B2CEDE;
   --coral: #F08080;
   --lightGreen: #69a197;
+  --lightGrey: #e2e6e7; 
 }
 
 .bg-sageGreen {
@@ -70,8 +71,8 @@ textarea {
 }
 
 .past {
-  background-color: var(--green);
-  color: white;
+  background-color: var(--lightGrey);
+  color: var(--black);
 }
 
 .present {
@@ -84,13 +85,14 @@ textarea {
   color: var(--black) !important;
 }
 
-.saveBtn {
+.save-btn {
   background-color: #fff;
   color: var(--black);
   justify-self: end;
 }
 
-.saveBtn:hover {
+.save-btn:hover {
+  background-color: var(--lightGrey);
   transition: all .3s ease-in-out;
 }
 

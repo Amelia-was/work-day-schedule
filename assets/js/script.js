@@ -1,102 +1,83 @@
 // global variables
+// today's date
 var today = moment().format('dddd, MMMM Do YYYY');
-console.log(today);
-
 var todaySpanEl = $("#currentDay");
 todaySpanEl.text(today);
+var startTime = 9;
 
-console.log(moment().format('h a'));
-
+// events array
 events = JSON.parse(localStorage.getItem("events"));
 
 if (!events) {
     // default event objects
-    var hour9 = {
-        hr: moment().set("hour", 9),
+    var hour1 = {
+        hr: moment().set("hour", startTime).format('h a'),
         event: ""
     }
-    var hour10 = {
-        hr: moment().set("hour", 10),
+    var hour2 = {
+        hr: moment().set("hour", startTime + 1).format('h a'),
         event: ""
     }
-    var hour11 = {
-        hr: moment().set("hour", 11),
+    var hour3 = {
+        hr: moment().set("hour", startTime + 2).format('h a'),
         event: ""
     }
-    var hour12 = {
-        hr: moment().set("hour", 12),
+    var hour4 = {
+        hr: moment().set("hour", startTime + 3).format('h a'),
         event: ""
     }
-    var hour13 = {
-        hr: moment().set("hour", 13),
+    var hour5 = {
+        hr: moment().set("hour", startTime + 4).format('h a'),
         event: ""
     }
-    var hour14 = {
-        hr: moment().set("hour", 14),
+    var hour6 = {
+        hr: moment().set("hour", startTime + 5).format('h a'),
         event: ""
     }
-    var hour15 = {
-        hr: moment().set("hour", 15),
+    var hour7 = {
+        hr: moment().set("hour", startTime + 6).format('h a'),
         event: ""
     }
-    var hour16 = {
-        hr: moment().set("hour", 16),
+    var hour8 = {
+        hr: moment().set("hour", startTime + 7).format('h a'),
         event: ""
     }
-    events = [hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16];
+    events = [hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8];
 }
-
-/* KEEP THiS */
-
-/*
-localStorage.setItem("notes", $("#notes").val());
-var savedNote = localStorage.getItem("notes");
-console.log(savedNote);
-var savedNote = localStorage.getItem("notes");
-$("#notes").text = savedNote;*/
 
 // notepad
 $("#notes").on("blur", function () {
     localStorage.setItem("notes", $("#notes").val());
-}
-)
+})
 
-var updateTimes = function(events) {
+// update times for a new day
+var updateDay = function () {
     if (moment(events[7].hr).isBefore(moment(), 'day')) {
+        startTime = 9;
         for (var i = 0; i < events.length; i++) {
-            events[i].hr = moment().set("hour", (i+9));
+            events[i].hr = moment().set("hour", (i + startTime));
         }
     }
 }
 
 // check events
 // change colour for past, present, future events
-var checkEvents = function (eventsArray) {
-    for (var i = 0; i < eventsArray.length; i++) {
-        var currID = "#" + (i + 9);
-        if (moment(events[i].hr).isSame(moment(), 'hour')) {
-            //console.log(moment(events[i].hr).format('h a'));
-            //console.log("is in the present");
-            $(currID).removeClass("future");
-            $(currID).removeClass("past");
-            $(currID).addClass("present");
+var checkEvents = function () {
+        $(".time-block").each(function (index) {
+        if (moment(events[index].hr).isSame(moment(), 'hour')) {
+            $(this).removeClass("past future");
+            $(this).addClass("present");
         }
-        else if (moment(events[i].hr).isBefore(moment(), 'hour')) {
-            //console.log(moment(events[i].hr).format('h a'));
-            //console.log("is in the past");
-            $(currID).removeClass("present");
-            $(currID).removeClass("future");
-            $(currID).addClass("past");
+        else if (moment(events[index].hr).isBefore(moment(), 'hour')) {
+            $(this).removeClass("present future");
+            $(this).addClass("past");
         }
         else {
-            ///console.log(moment(events[i].hr).format('h a'));
-            //console.log("is in the future");
-            $(currID).removeClass("past");
-            $(currID).removeClass("present");
-            $(currID).addClass("future");
+            $(this).removeClass("past present");
+            $(this).addClass("future");
         }
-    }
-}
+    });
+};
 
 // save events
 // get text from each timeblock
@@ -105,11 +86,8 @@ var checkEvents = function (eventsArray) {
 var saveEvents = function() {
     $(".time-block").each(function(index) {
         events[index].event = $(this).text();
-        events[index].hr = moment().set("hour", (index + 9));
-        $(this).attr('id', (index + 9));
+        //events[index].hr = moment().set("hour", (index + startTime));
     });
-
-    //console.log(events);
 
     localStorage.setItem("events", JSON.stringify(events));
 
@@ -119,19 +97,31 @@ var saveEvents = function() {
 // get events from local storage 
 // update timeblocks with event text
 var loadEvents = function () {
-    $(".time-block").each(function (index) {
-        $(this).text(events[index].event);
+    $(".row").each(function (index) {
+        $(this)
+        .find($(".time-block"))
+        .text(events[index].event)
+        console.log($(this));
+
+        $(this)
+        .find($(".hour"))
+        .text(moment(events[index].hr).format('h a'))
     });
-    checkEvents(events);
+    checkEvents();
 
     // load notes
     var savedNote = localStorage.getItem("notes");
-    $("#notes").val(savedNote);
+    if (!savedNote) {
+        $("#notes").val("Take notes here!")
+    }
+    else {
+        $("#notes").val(savedNote);
+    }
 }
 
 // click listener for time block div element
 $(".row").on("click", ".time-block", function () {
-    var currEventIndex = parseInt($(this).attr('id')) - 9;
+    var currEventIndex = $(".time-block").index($(this));
     // only allow editing for present/future events
     if (!(moment(events[currEventIndex].hr).isBefore(moment(), 'hour'))) {
         var timeClass = " future";
@@ -146,7 +136,14 @@ $(".row").on("click", ".time-block", function () {
         // change to form input
         var textInput = $("<textarea>")
             .addClass("inherit-height pt-3 col-10 border-x-2" + timeClass)
+            .attr('id', "event-input")
             .val(text);
+
+        // display save button
+        $(this).closest(".row")
+            .find(".save-btn")
+            .removeClass("d-none")
+            .addClass(timeClass + " d-flex");
 
         $(this).replaceWith(textInput);
         // automatically select text
@@ -161,16 +158,22 @@ $(".row").on("blur", "textarea", function () {
         .val()
         .trim();
 
+    // make save button invisible
+    $(this).closest(".row")
+        .find(".save-btn")
+        .removeClass("present future d-flex")
+        .addClass("d-none");
+
     // recreate div element
     var newEvent = $("<div>")
-        .addClass("time-block col-10 border-x-2 text-left pt-3")
+        .addClass("time-block col border-2 ml-n2px text-light text-left py-3")
         .text(text);
 
     // replace textarea with div element
     $(this).replaceWith(newEvent);
 
     saveEvents();
-    checkEvents(events);
+    checkEvents();
 });
 
 // clear all events
@@ -181,5 +184,24 @@ $("#clear").on("click", function () {
     })
 });
 
-updateTimes(events);
+/*
+var changeStartTime = function (newTime) {
+    startTime = newTime;
+    $(".hour").each(function (index) {
+        events[index].hr = moment().set("hour", (index + startTime));
+        $(this).text(moment(events[index].hr).format('h a'));
+        console.log(events)
+    });
+    saveEvents();
+}*/
+
+// change start time
+// use global start time variable
+// user input to choose the start time
+// add that to index each time
+// new day should revert to default times
+
+console.log(events);
+//changeStartTime(14)
+updateDay();
 loadEvents();

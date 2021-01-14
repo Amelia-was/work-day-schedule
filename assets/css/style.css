@@ -12,6 +12,7 @@ body {
   --magenta: #723d46;
   --green: #096B72;
   --black: #070707;
+  --blackTransparent: rgba(7, 7, 7, 0.6);
   --lightBlue: #B2CEDE;
   --coral: #F08080;
   --lightGreen: #69a197;
@@ -72,7 +73,7 @@ textarea {
 
 .past {
   background-color: var(--lightGrey);
-  color: var(--black);
+  color: var(--blackTransparent) !important;
 }
 
 .present {
@@ -86,13 +87,12 @@ textarea {
 }
 
 .save-btn {
-  background-color: #fff;
   color: var(--black);
   justify-self: end;
 }
 
 .save-btn:hover {
-  background-color: var(--lightGrey);
+  background-color: #fff;
   transition: all .3s ease-in-out;
 }
 
@@ -113,6 +113,10 @@ textarea {
   border-bottom: 2px solid var(--black) !important;
 }
 
+.ml-n2px {
+  margin-left: -2px;
+}
+
 .offset-border-2 {
   box-shadow: 2px 2px var(--black) !important;
 }
@@ -123,6 +127,10 @@ textarea {
 
 .offset-border-3 {
   box-shadow: 3px 3px var(--black) !important;
+}
+
+.border-l0 {
+  border-left: none !important;
 }
 
 #notes {
@@ -177,4 +185,8 @@ textarea {
 
 .inherit-height {
   height: inherit;
+}
+
+.container {
+  max-width: 955px;
 }

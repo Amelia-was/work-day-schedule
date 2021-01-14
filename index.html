@@ -19,16 +19,16 @@
 </head>
 
 <body>
-  <header class="jumbotron bg-white d-flex justify-content-center">
+  <header class="jumbotron bg-white d-flex justify-content-center mt-0 mb-2 my-lg-5 mx-lg-auto p-2 p-lg-4 w-100">
     <!--<span class="oi oi-list display-3 border-4 mr-4 p-3 offset-border-4 bg-yellow"></span>-->
     <!--<img src="assets/icons/list.svg" class="list-icon border-2 offset-border-3 p-3 mr-5 bg-yellow" alt="Task list">-->
-    <div class="list-img border-2 offset-border-3 p-3 mr-5 bg-yellow text-left">▇   ▇▇▇▇▇
+    <div class="d-none d-md-block list-img border-2 offset-border-3 p-3 mr-lg-5 mr-md-4 bg-yellow text-left">▇   ▇▇▇▇▇
 ▇   ▇▇▇▇▇
 ▇   ▇▇▇▇▇
 ▇   ▇▇▇▇▇</div>
-    <div class="text-left">
-      <h1 class="display-4">
-        ✏ Work Day Scheduler
+    <div class="text-center text-md-left">
+      <h1>
+        Work Day Scheduler
       </h1>
       <!--class="lead"-->
       <p>A simple calendar app for scheduling your work day</p>
@@ -37,11 +37,21 @@
   </header>
 
 
-  <!-- page container -->
-  <div class="d-flex flex-row flex-wrap justify-content-center">
+  <!-- page flex container -->
+  <div class="d-flex flex-row-reverse flex-wrap justify-content-center mb-5">
+
+    <!-- notepad and buttons -->
+    <div class="d-flex flex-row flex-lg-column align-items-center align-items-lg-stretch">
+      <textarea id="notes" class="border-2 offset-border-3 mr-2 mr-lg-n2 mb-2">Take notes here!</textarea>
+      <div class="d-flex flex-column">
+      <button class="btn-black border-2 p-2 mb-2" id="clear">Change start time</button>
+      <button class="btn-black border-2 p-2 mb-2" id="clear">Clear all events</button>
+      <button class="btn-black border-2 p-2" id="add-note">Add note</button>
+      </div>
+    </div>
 
     <!-- schedule container -->
-    <div class="container m-0">
+    <div class="container-xs mx-1 ml-md-n1 mr-md-2">
 
       <!-- add hour before -->
       <!--<div class="row mb-tiny">
@@ -134,15 +144,6 @@
     </div>-->
 
 
-    </div>
-
-
-    <!-- notepad and buttons -->
-    <div class="d-flex flex-column">
-      <textarea id="notes" class="border-2 offset-border-3 mb-2">Take notes here!</textarea>
-      <button class="btn-black border-2 p-2 mb-2" id="clear">Change start time</button>
-      <button class="btn-black border-2 p-2 mb-2" id="clear">Clear all events</button>
-      <button class="btn-black border-2 p-2" id="add-note">Add note</button>
     </div>
 
   </div>

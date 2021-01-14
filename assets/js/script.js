@@ -183,6 +183,3 @@ $("#clear").on("click", function () {
 
 updateTimes(events);
 loadEvents();
-
-
-

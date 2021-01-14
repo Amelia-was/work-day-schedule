@@ -45,8 +45,7 @@ textarea {
   border-radius: 0;
   border: 2px solid black;
   padding: 40px;
-  width: 75%;
-  margin: 40px auto;
+  max-width: 1024px;
 }
 
 .description {
@@ -69,7 +68,6 @@ textarea {
   font-size: 14px;
   padding: 30px 0;
   text-align: center;
-  /*border-top: 1px dashed var(--black);*/
 }
 
 .past {
@@ -94,7 +92,6 @@ textarea {
 }
 
 .saveBtn:hover {
-  background-color: var(--lightBlue) !important;
   transition: all .3s ease-in-out;
 }
 
@@ -130,14 +127,6 @@ textarea {
 #notes {
   background: #fff;
 }
-
-/*
-.flex-row {
-  display: flex;
-  flex: row wrap;
-  justify-items: center;
-}
-*/
 
 .btn-add {
   background: #fff;
@@ -176,18 +165,6 @@ textarea {
 .lock {
   height: 20px;
   width: 20px;
-}
-
-/*
-@media only screen and (max-width: 1024px) {
-.container-sm {
-  max-width: 600px !important;
-}
-}
-*/
-
-.container {
-  max-width: 70vw !important;
 }
 
 .list-img {

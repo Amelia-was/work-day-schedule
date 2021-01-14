@@ -1,6 +1,6 @@
 body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-family: monospace, 'Courier New', Courier, monospace;
+  font-size: 15px;
   line-height: 1;
   background: var(--yellow);
   color: var(--black);
@@ -59,7 +59,6 @@ textarea {
 .row {
   white-space: pre-wrap;
   margin: 0;
-  /*height: 80px;*/
 }
 
 .hour {

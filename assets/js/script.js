@@ -5,7 +5,7 @@ var todaySpanEl = $("#currentDay");
 todaySpanEl.text(today);
 var startTime = 9;
 
-// events array
+// get events array from localStorage
 events = JSON.parse(localStorage.getItem("events"));
 
 if (!events) {
@@ -45,7 +45,7 @@ if (!events) {
     events = [hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8];
 }
 
-// notepad
+// save notepad
 $("#notes").on("blur", function () {
     localStorage.setItem("notes", $("#notes").val());
 })
@@ -63,7 +63,7 @@ var updateDay = function () {
 // check events
 // change colour for past, present, future events
 var checkEvents = function () {
-        $(".time-block").each(function (index) {
+    $(".time-block").each(function (index) {
         if (moment(events[index].hr).isSame(moment(), 'hour')) {
             $(this).removeClass("past future");
             $(this).addClass("present");
@@ -79,32 +79,38 @@ var checkEvents = function () {
     });
 };
 
-// save events
-// get text from each timeblock
-// save to array of objects
-// save them to local storage
+// save events to localStorage
 var saveEvents = function() {
-    $(".time-block").each(function(index) {
+    localStorage.setItem("events", JSON.stringify(events));
+}
+
+// update current event
+var updateEvent = function(index) {
+    events[index].event = ($(".time-block").get(index)).textContent;
+
+    saveEvents();
+}
+
+// update all events
+var updateAllEvents = function () {
+    $(".time-block").each(function (index) {
         events[index].event = $(this).text();
-        //events[index].hr = moment().set("hour", (index + startTime));
     });
 
-    localStorage.setItem("events", JSON.stringify(events));
-
+    saveEvents();
 };
 
-// load events
-// get events from local storage 
+// load events from local storage 
 // update timeblocks with event text
 var loadEvents = function () {
     $(".row").each(function (index) {
         $(this)
-        .find($(".time-block"))
-        .text(events[index].event)
+            .find($(".time-block"))
+            .text(events[index].event)
 
         $(this)
-        .find($(".hour"))
-        .text(moment(events[index].hr).format('h a'))
+            .find($(".hour-text"))
+            .text(moment(events[index].hr).format('h a'))
     });
     checkEvents();
 
@@ -165,41 +171,36 @@ $(".row").on("blur", "textarea", function () {
 
     // recreate div element
     var newEvent = $("<div>")
-        .addClass("time-block col border-2 ml-n2px text-light text-left py-3")
+        .addClass("time-block col border-2 ml-n2px text-left py-3")
         .text(text);
 
     // replace textarea with div element
     $(this).replaceWith(newEvent);
 
-    saveEvents();
+    // update new event 
+    updateEvent($(".time-block").index(newEvent));
     checkEvents();
 });
 
 // clear all events
-$("#clear").on("click", function () {
-    $(".time-block").each(function(index) {
-        $(this).text("");
-        saveEvents();
-    })
+$(".btn-black").on("click", function () {
+    if (this.id === "clear") {
+        // only clear present/future events
+        $(".time-block").each(function (index) {
+            if (!(moment(events[index].hr).isBefore(moment(), 'hour'))) {
+                $(this).text("");
+                updateAllEvents();
+            }
+        })
+    }
+    // clear all events
+    else if (this.id === "clear-all") {
+        $(".time-block").each(function (index) {
+            $(this).text("");
+            updateAllEvents();
+        })
+    }
 });
 
-/*
-var changeStartTime = function (newTime) {
-    startTime = newTime;
-    $(".hour").each(function (index) {
-        events[index].hr = moment().set("hour", (index + startTime));
-        $(this).text(moment(events[index].hr).format('h a'));
-        console.log(events)
-    });
-    saveEvents();
-}*/
-
-// change start time
-// use global start time variable
-// user input to choose the start time
-// add that to index each time
-// new day should revert to default times
-
-//changeStartTime(14)
 updateDay();
 loadEvents();

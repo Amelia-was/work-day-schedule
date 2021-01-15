@@ -1,3 +1,4 @@
+/* global styles */
 body {
   font-family: monospace, 'Courier New', Courier, monospace;
   font-size: 15px;
@@ -23,15 +24,7 @@ body {
   background: #fff;
 }
 
-textarea {
-  background: transparent;
-  border: none;
-  resize: vertical;
-  color: var(--black);
-  padding: 10px;
-  height: 150px;
-}
-
+/* header */
 .jumbotron {
   text-align: center;
   background-color: transparent;
@@ -42,11 +35,17 @@ textarea {
   max-width: 1024px;
 }
 
-.row {
-  white-space: pre-wrap;
-  margin: 0;
+/* input */
+textarea {
+  background: transparent;
+  border: none;
+  resize: vertical;
+  color: var(--black);
+  padding: 10px;
+  height: 150px;
 }
 
+/* time classes */
 .hour {
   background-color: #ffffff;
   color: var(--black);
@@ -70,20 +69,7 @@ textarea {
   color: var(--black) !important;
 }
 
-.save-btn {
-  color: var(--black);
-  justify-self: end;
-}
-
-.save-btn:hover {
-  background-color: #fff;
-  transition: all .3s ease-in-out;
-}
-
-.border-4 {
-  border: 4px solid var(--black) !important;
-}
-
+/* border classes */
 .offset-border-4 {
   box-shadow: 4px 4px var(--black) !important;
 }
@@ -97,33 +83,27 @@ textarea {
   border-bottom: 2px solid var(--black) !important;
 }
 
-.ml-n2px {
-  margin-left: -2px;
-}
-
-.offset-border-2 {
-  box-shadow: 2px 2px var(--black) !important;
-}
-
-.border-3 {
-  border: 3px solid var(--black) !important;
-}
-
-.offset-border-3 {
-  box-shadow: 3px 3px var(--black) !important;
-}
-
 .border-l0 {
   border-left: none !important;
 }
 
-.btn-add {
-  background: #fff;
-  color: var(--black);
+/* margin classes */
+.ml-n2px {
+  margin-left: -2px;
 }
 
-.btn-add:hover {
-  background: var(--lightBlue);
+.mb-tiny {
+  margin-bottom: 2px;
+}
+
+/* button classes */
+.save-btn {
+  color: var(--black);
+  justify-self: end;
+}
+
+.save-btn:hover {
+  background-color: #fff;
   transition: all .3s ease-in-out;
 }
 
@@ -138,13 +118,10 @@ textarea {
   transition: all .3s ease-in-out;
 }
 
+/* icons */
 .list-icon {
   height: 100px;
   width: 100px;
-}
-
-.mb-tiny {
-  margin-bottom: 2px;
 }
 
 .lock {
@@ -152,10 +129,21 @@ textarea {
   width: 20px;
 }
 
+/* sizing classes */
 .inherit-height {
   height: inherit;
 }
 
 .container {
   max-width: 955px;
+  min-width: 320px;
+}
+
+/* MEDIA QUERY */
+/* Rotate time on small screens */
+@media only screen and (max-width: 575px) {
+  .hour-text {
+    transform: rotate(-90deg);
+    white-space: nowrap;
+  }
 }

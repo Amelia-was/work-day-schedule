@@ -11,35 +11,35 @@ events = JSON.parse(localStorage.getItem("events"));
 if (!events) {
     // default event objects
     var hour1 = {
-        hr: moment().set("hour", startTime).format('h a'),
+        hr: moment().set("hour", startTime),
         event: ""
     }
     var hour2 = {
-        hr: moment().set("hour", startTime + 1).format('h a'),
+        hr: moment().set("hour", startTime + 1),
         event: ""
     }
     var hour3 = {
-        hr: moment().set("hour", startTime + 2).format('h a'),
+        hr: moment().set("hour", startTime + 2),
         event: ""
     }
     var hour4 = {
-        hr: moment().set("hour", startTime + 3).format('h a'),
+        hr: moment().set("hour", startTime + 3),
         event: ""
     }
     var hour5 = {
-        hr: moment().set("hour", startTime + 4).format('h a'),
+        hr: moment().set("hour", startTime + 4),
         event: ""
     }
     var hour6 = {
-        hr: moment().set("hour", startTime + 5).format('h a'),
+        hr: moment().set("hour", startTime + 5),
         event: ""
     }
     var hour7 = {
-        hr: moment().set("hour", startTime + 6).format('h a'),
+        hr: moment().set("hour", startTime + 6),
         event: ""
     }
     var hour8 = {
-        hr: moment().set("hour", startTime + 7).format('h a'),
+        hr: moment().set("hour", startTime + 7),
         event: ""
     }
     events = [hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8];

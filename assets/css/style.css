@@ -35,14 +35,21 @@ body {
   max-width: 1024px;
 }
 
+
+
 /* input */
 textarea {
   background: transparent;
   border: none;
-  resize: vertical;
+  resize: both;
   color: var(--black);
   padding: 10px;
   height: 150px;
+  max-width: 50vw;
+}
+
+.row {
+  white-space: pre-wrap;
 }
 
 /* time classes */

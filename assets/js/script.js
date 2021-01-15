@@ -202,5 +202,8 @@ $(".btn-black").on("click", function () {
     }
 });
 
+// check events every half hour 
+setInterval(checkEvents(), (1000 * 60 * 30));
+
 updateDay();
 loadEvents();
